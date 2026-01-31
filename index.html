@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- STYLING --- */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
         body { height: 100vh; display: flex; background-color: #f0f2f5; overflow: hidden; }
         
@@ -22,60 +21,66 @@
             --purple-vivid: #6a1b9a; 
             --accent-cyan: #00e5ff;
             --red-alert: #e53935; 
-            --sidebar-grad: linear-gradient(180deg, #2c3e50 0%, #000000 100%);
+            --sidebar-grad: linear-gradient(180deg, #1a237e 0%, #000000 100%);
         }
 
         /* SIDEBAR */
-        .sidebar { width: 340px; background: var(--sidebar-grad); color: white; display: flex; flex-direction: column; padding: 25px; z-index: 10; box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
+        .sidebar { width: 340px; background: var(--sidebar-grad); color: white; display: flex; flex-direction: column; padding: 20px; z-index: 10; box-shadow: 5px 0 15px rgba(0,0,0,0.3); overflow-y: auto; }
         
-        .brand { text-align: center; margin-bottom: 25px; }
-        .brand h1 { font-size: 1.8rem; letter-spacing: 1px; color: var(--accent-cyan); }
-        .slogan { font-size: 0.85rem; opacity: 0.8; font-style: italic; margin-top: 5px; color: #b0bec5; }
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { font-size: 1.6rem; color: var(--accent-cyan); }
+        .slogan { font-size: 0.8rem; opacity: 0.7; font-style: italic; }
 
-        .panel { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .panel { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1); }
         
-        /* STATUS INDICATOR (LEFT SIDE) */
-        .status-area { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; margin-bottom: 15px; padding-left: 5px; }
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #555; transition: 0.3; }
+        .status-area { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; margin-bottom: 10px; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #555; }
         .status-online { background: #4caf50; box-shadow: 0 0 8px #4caf50; }
 
-        /* ID BOX & COPY */
-        .id-container { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.4); padding: 8px; border-radius: 8px; border: 1px solid var(--ocean-deep); }
-        #my-id { font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--accent-cyan); overflow: hidden; text-overflow: ellipsis; flex: 1; }
-        .copy-btn { background: none; border: none; color: white; cursor: pointer; opacity: 0.7; }
-        .copy-btn:hover { color: var(--accent-cyan); opacity: 1; }
+        .id-container { display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); padding: 8px; border-radius: 6px; border: 1px solid var(--ocean-deep); }
+        #my-id { font-family: monospace; font-size: 0.8rem; color: var(--accent-cyan); overflow: hidden; text-overflow: ellipsis; flex: 1; }
+        .copy-btn { background: none; border: none; color: white; cursor: pointer; transition: 0.2s; }
 
-        input[type="text"] { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; margin-bottom: 12px; outline: none; }
+        .guide-box { font-size: 0.8rem; line-height: 1.5; color: #cfd8dc; }
+        .guide-box ul { list-style: none; padding-top: 8px; }
+        .guide-box li { margin-bottom: 8px; display: flex; gap: 8px; }
+        .guide-box i { color: var(--accent-cyan); width: 15px; margin-top: 3px; }
+
+        input[type="text"] { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; margin-bottom: 10px; outline: none; }
         
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: white; margin-bottom: 10px; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn { width: 100%; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; margin-bottom: 8px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; }
         .btn-connect { background: var(--ocean-deep); }
         
-        #call-actions { display: none; flex-direction: column; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); }
+        #call-actions { display: none; flex-direction: column; }
         .btn-video { background: var(--purple-vivid); }
         .btn-audio { background: #2e7d32; }
+        .btn-file { background: #455a64; }
 
-        .creator-info { margin-top: auto; font-size: 0.8rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .creator-info { margin-top: auto; font-size: 0.75rem; text-align: center; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); }
         .creator-info a { color: var(--accent-cyan); text-decoration: none; font-weight: bold; }
 
         /* MAIN CONTENT */
-        .main-content { flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 15px; position: relative; }
-        .video-container { flex: 1; display: flex; gap: 15px; max-height: 45%; }
-        .video-card { flex: 1; background: #1a1a1a; border-radius: 15px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; border: 2px solid #ddd; }
+        .main-content { flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .video-container { flex: 1; display: flex; gap: 10px; max-height: 40%; }
+        .video-card { flex: 1; background: #000; border-radius: 12px; overflow: hidden; position: relative; border: 1px solid #ccc; }
         video { width: 100%; height: 100%; object-fit: cover; }
         #local-video { transform: scaleX(-1); }
 
         /* CHAT */
-        .chat-container { flex: 1.5; background: white; border-radius: 15px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        .chat-messages { flex: 1; padding: 20px; overflow-y: auto; background: #fafafa; display: flex; flex-direction: column; }
-        .message { margin-bottom: 12px; max-width: 75%; padding: 10px 15px; border-radius: 15px; font-size: 0.95rem; }
-        .msg-remote { background: #e9ecef; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .msg-local { background: var(--purple-vivid); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .chat-container { flex: 1.5; background: white; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .message { max-width: 80%; padding: 10px; border-radius: 12px; font-size: 0.9rem; word-wrap: break-word; }
+        .msg-remote { background: #eceff1; align-self: flex-start; }
+        .msg-local { background: var(--purple-vivid); color: white; align-self: flex-end; }
         
-        /* OVERLAY */
-        #incoming-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; color: white; }
+        /* FILE PROGRESS */
+        #file-progress-container { padding: 10px; background: #f5f5f5; display: none; border-top: 1px solid #ddd; }
+        progress { width: 100%; height: 8px; }
 
-        .call-controls { display: flex; justify-content: center; gap: 20px; padding: 10px; background: white; border-radius: 50px; width: fit-content; margin: 0 auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .ctrl-btn { width: 45px; height: 45px; border-radius: 50%; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        #incoming-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; color: white; }
+
+        .call-controls { display: flex; justify-content: center; gap: 15px; padding: 10px; background: white; border-radius: 30px; width: fit-content; margin: 0 auto; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .ctrl-btn { width: 40px; height: 40px; border-radius: 50%; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
         @media (max-width: 768px) { body { flex-direction: column; } .sidebar { width: 100%; height: auto; } }
     </style>
@@ -83,19 +88,18 @@
 <body>
 
     <div id="incoming-overlay">
-        <div style="font-size: 4rem; margin-bottom: 20px; color: var(--accent-cyan);"><i class="fas fa-phone-alt fa-beat"></i></div>
-        <h2 id="caller-name">Incoming Node Connection</h2>
-        <p id="call-type-label" style="margin-bottom: 30px; opacity:0.8;">Transmission Detected</p>
-        <div style="display:flex; gap:20px;">
-            <button onclick="acceptIncomingCall()" style="background:#4caf50; padding:15px 40px; border:none; border-radius:50px; color:white; cursor:pointer; font-weight:bold;"><i class="fas fa-check"></i> Accept</button>
-            <button onclick="rejectIncomingCall()" style="background:#f44336; padding:15px 40px; border:none; border-radius:50px; color:white; cursor:pointer; font-weight:bold;"><i class="fas fa-times"></i> Reject</button>
+        <div style="font-size: 3rem; color: var(--accent-cyan);"><i class="fas fa-phone-alt fa-beat"></i></div>
+        <h2 style="margin: 20px 0;">Incoming Call</h2>
+        <div style="display:flex; gap:15px;">
+            <button onclick="acceptIncomingCall()" style="background:#4caf50; padding:12px 30px; border:none; border-radius:25px; color:white; cursor:pointer; font-weight:bold;">Accept</button>
+            <button onclick="rejectIncomingCall()" style="background:#f44336; padding:12px 30px; border:none; border-radius:25px; color:white; cursor:pointer; font-weight:bold;">Reject</button>
         </div>
     </div>
 
     <div class="sidebar">
         <div class="brand">
             <h1>HumayMud</h1>
-            <p class="slogan">Decentralized communication, redefined for privacy.</p>
+            <p class="slogan">Decentralized P2P Privacy</p>
         </div>
 
         <div class="status-area">
@@ -104,60 +108,68 @@
         </div>
         
         <div class="panel">
-            <div style="font-size:0.75rem; opacity:0.7; margin-bottom: 8px;">MY PRIVATE ADDRESS</div>
+            <div style="font-size:0.7rem; opacity:0.7; margin-bottom: 5px;">MY PRIVATE ID</div>
             <div class="id-container">
                 <div id="my-id">Initializing...</div>
-                <button class="copy-btn" onclick="copyMyId()" title="Copy ID"><i class="fas fa-copy"></i></button>
+                <button class="copy-btn" onclick="copyMyId()"><i class="fas fa-copy"></i></button>
             </div>
         </div>
 
         <div class="panel">
-            <input type="text" id="remote-id" placeholder="Remote Node ID...">
+            <input type="text" id="remote-id" placeholder="Paste Remote ID...">
             <button class="btn btn-connect" onclick="connectToPeer()">
-                <i class="fas fa-plug"></i> Initialize Node
+                <i class="fas fa-plug"></i> Connect Node
             </button>
-
             <div id="call-actions">
                 <button class="btn btn-video" onclick="startCall(true)"><i class="fas fa-video"></i> Video Call</button>
                 <button class="btn btn-audio" onclick="startCall(false)"><i class="fas fa-phone"></i> Audio Call</button>
-                <button class="btn" style="background: #455a64;" onclick="document.getElementById('file-input').click()"><i class="fas fa-file-export"></i> Share File</button>
+                <button class="btn btn-file" onclick="document.getElementById('file-input').click()">
+                    <i class="fas fa-paperclip"></i> Share File
+                </button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="guide-box">
+                <strong><i class="fas fa-info-circle"></i> How to Use:</strong>
+                <ul>
+                    <li><i class="fas fa-share-alt"></i> Share your ID with a friend.</li>
+                    <li><i class="fas fa-link"></i> Paste their ID & click Connect.</li>
+                    <li><i class="fas fa-video"></i> Use Call Actions once connected.</li>
+                    <li><i class="fas fa-file-export"></i> Files are sent P2P (No Servers).</li>
+                </ul>
             </div>
         </div>
 
         <div class="creator-info">
-            <p>Developed by <br> 
-                <a href="https://smkfarabi-stack.github.io/my-portfolio/#home" target="_blank">smkfarabi</a>
-            </p>
-            <p style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6;">Founder of HumayMud Projects</p>
+            <p>By <a href="https://smkfarabi-stack.github.io/my-portfolio/#home" target="_blank">smkfarabi</a></p>
+            <p style="opacity: 0.5;">Founder of HumayMud Projects</p>
         </div>
     </div>
 
     <div class="main-content">
         <div class="video-container">
-            <div class="video-card">
-                <video id="local-video" autoplay muted></video>
-                <div style="position:absolute; bottom:10px; left:10px; color:white; font-size:0.7rem; background:rgba(0,0,0,0.5); padding:2px 8px; border-radius:10px;">LOCAL</div>
-            </div>
-            <div class="video-card">
-                <video id="remote-video" autoplay></video>
-                <div style="position:absolute; bottom:10px; left:10px; color:white; font-size:0.7rem; background:rgba(0,0,0,0.5); padding:2px 8px; border-radius:10px;">REMOTE</div>
-            </div>
+            <div class="video-card"><video id="local-video" autoplay muted></video></div>
+            <div class="video-card"><video id="remote-video" autoplay></video></div>
         </div>
 
         <div class="call-controls" id="media-controls" style="display:none;">
             <button class="ctrl-btn" style="background:#555" onclick="toggleAudio()"><i class="fas fa-microphone"></i></button>
             <button class="ctrl-btn" style="background:#555" onclick="toggleVideo()"><i class="fas fa-camera"></i></button>
-            <button id="btn-end" class="ctrl-btn" style="background:var(--red-alert)" onclick="endCall()"><i class="fas fa-phone-slash"></i></button>
+            <button class="ctrl-btn" style="background:var(--red-alert)" onclick="endCall()"><i class="fas fa-phone-slash"></i></button>
         </div>
 
         <div class="chat-container">
             <div class="chat-messages" id="chat-box"></div>
-            <div id="file-progress-container" style="padding: 10px 20px; display:none; background:#f0f0f0;">
-                <progress id="file-progress" value="0" max="100" style="width:100%;"></progress>
+            
+            <div id="file-progress-container">
+                <progress id="file-progress" value="0" max="100"></progress>
+                <div id="file-status-text" style="font-size: 0.7rem; text-align: center;">Sending...</div>
             </div>
+
             <div style="padding:15px; background:#eee; display:flex; gap:10px;">
-                <input type="text" id="chat-input" placeholder="Secure message..." onkeypress="handleEnter(event)" style="margin:0; color:#333; background:white;">
-                <button class="ctrl-btn btn-connect" style="width:45px; height:45px; margin:0;" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+                <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="handleEnter(event)" style="margin:0; color:#333;">
+                <button class="ctrl-btn btn-connect" style="width:40px; height:40px;" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
@@ -167,60 +179,59 @@
     <script>
         const peer = new Peer(); 
         let conn, currentCall, localStream, pendingCall;
+        const ringtone = new Audio('https://assets.mixkit.co/active_storage/sfx/1359/1359-preview.mp3');
+        ringtone.loop = true;
 
-        // INITIALIZE
         peer.on('open', id => {
             document.getElementById('my-id').innerText = id;
             document.getElementById('status-dot').className = 'status-dot status-online';
             document.getElementById('status-text').innerText = "Network Ready";
         });
 
-        // HANDLE INCOMING DATA
-        peer.on('connection', c => {
-            conn = c;
-            setupDataListener();
-            onPeerConnected();
+        peer.on('disconnected', () => {
+            document.getElementById('status-text').innerText = "Reconnecting...";
+            document.getElementById('status-dot').className = 'status-dot';
+            peer.reconnect();
         });
 
-        // HANDLE INCOMING CALL
+        peer.on('connection', c => { conn = c; setupDataListener(); onPeerConnected(); });
+
         peer.on('call', call => {
             pendingCall = call;
-            const isVideo = call.metadata && call.metadata.video;
+            ringtone.play().catch(() => {});
             document.getElementById('incoming-overlay').style.display = 'flex';
-            document.getElementById('call-type-label').innerText = isVideo ? "Incoming Video Call" : "Incoming Audio Call";
         });
 
         async function acceptIncomingCall() {
+            stopRingtone();
             document.getElementById('incoming-overlay').style.display = 'none';
-            const constraints = { video: pendingCall.metadata?.video || false, audio: true };
             try {
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
                 localStream = stream;
                 document.getElementById('local-video').srcObject = stream;
                 pendingCall.answer(stream);
                 handleCallStream(pendingCall);
-            } catch (err) { alert("Access Denied: " + err); }
+            } catch(e) { alert("Media Error: " + e); }
         }
 
         function rejectIncomingCall() {
+            stopRingtone();
             document.getElementById('incoming-overlay').style.display = 'none';
-            if(pendingCall) pendingCall.close();
+            pendingCall.close();
         }
 
-        // ACTIONS
+        function stopRingtone() { ringtone.pause(); ringtone.currentTime = 0; }
+
         function connectToPeer() {
             const id = document.getElementById('remote-id').value;
             if(!id) return;
             conn = peer.connect(id);
-            conn.on('open', () => {
-                setupDataListener();
-                onPeerConnected();
-            });
+            conn.on('open', () => { setupDataListener(); onPeerConnected(); });
         }
 
         function onPeerConnected() {
             document.getElementById('call-actions').style.display = 'flex';
-            addSysMsg("Peer connected. Tunnel secure.");
+            addSysMsg("P2P Tunnel Secure.");
         }
 
         function startCall(withVideo) {
@@ -229,24 +240,22 @@
                 document.getElementById('local-video').srcObject = stream;
                 const call = peer.call(conn.peer, stream, { metadata: { video: withVideo } });
                 handleCallStream(call);
-            });
+            }).catch(e => alert("Could not start call: " + e));
         }
 
         function handleCallStream(call) {
             currentCall = call;
             document.getElementById('media-controls').style.display = 'flex';
-            call.on('stream', remoteStream => {
-                document.getElementById('remote-video').srcObject = remoteStream;
-            });
+            call.on('stream', rs => document.getElementById('remote-video').srcObject = rs);
             call.on('close', endCall);
         }
 
         function endCall() {
             if(currentCall) currentCall.close();
             if(localStream) localStream.getTracks().forEach(t => t.stop());
-            document.getElementById('local-video').srcObject = null;
-            document.getElementById('remote-video').srcObject = null;
             document.getElementById('media-controls').style.display = 'none';
+            document.getElementById('remote-video').srcObject = null;
+            document.getElementById('local-video').srcObject = null;
         }
 
         function setupDataListener() {
@@ -255,7 +264,7 @@
                 if(d.type === 'file') {
                     const blob = new Blob([d.file], { type: d.fileType });
                     const url = URL.createObjectURL(blob);
-                    addMsg(`Received File: <a href="${url}" download="${d.fileName}">${d.fileName}</a>`, 'remote');
+                    addMsg(`<b>File Received:</b><br><a href="${url}" download="${d.fileName}" style="color:var(--purple-vivid)">Download ${d.fileName}</a>`, 'remote');
                 }
             });
         }
@@ -269,14 +278,34 @@
         }
 
         function sendFile() {
+            if (!conn) return alert("Connect to a node first!");
             const file = document.getElementById('file-input').files[0];
+            if (!file) return;
+
             const reader = new FileReader();
-            document.getElementById('file-progress-container').style.display = 'block';
+            const progContainer = document.getElementById('file-progress-container');
+            const progBar = document.getElementById('file-progress');
+
+            progContainer.style.display = 'block';
+            
             reader.onload = (e) => {
-                conn.send({ type: 'file', file: e.target.result, fileName: file.name, fileType: file.type });
-                addSysMsg(`Sent: ${file.name}`);
-                document.getElementById('file-progress-container').style.display = 'none';
+                conn.send({
+                    type: 'file',
+                    file: e.target.result,
+                    fileName: file.name,
+                    fileType: file.type
+                });
+                addSysMsg("Successfully sent: " + file.name);
+                progContainer.style.display = 'none';
+                document.getElementById('file-input').value = ""; // Reset
             };
+
+            reader.onprogress = (data) => {
+                if (data.lengthComputable) {
+                    progBar.value = (data.loaded / data.total) * 100;
+                }
+            };
+
             reader.readAsArrayBuffer(file);
         }
 
@@ -287,31 +316,20 @@
         }
 
         function addMsg(txt, type) {
-            const box = document.getElementById('chat-box');
             const d = document.createElement('div');
             d.className = `message msg-${type}`;
             d.innerHTML = txt;
-            box.appendChild(d);
-            box.scrollTop = box.scrollHeight;
+            document.getElementById('chat-box').appendChild(d);
+            document.getElementById('chat-box').scrollTop = 99999;
         }
 
-        function addSysMsg(txt) {
-            const box = document.getElementById('chat-box');
-            box.innerHTML += `<div style="text-align:center; font-size:0.7rem; color:#888; margin:10px 0;">${txt}</div>`;
-        }
-
+        function addSysMsg(t) { addMsg(`<i style="font-size:0.7rem; color:#888;">System: ${t}</i>`, 'remote'); }
         function handleEnter(e) { if(e.key === "Enter") sendChat(); }
-
         function toggleAudio() { localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0].enabled; }
         function toggleVideo() { localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0].enabled; }
 
-        // SERVICE WORKER REGISTRATION
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').then(reg => {
-                    console.log('SW Registered', reg.scope);
-                }).catch(err => console.log('SW Failed', err));
-            });
+            window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
         }
     </script>
 </body>
